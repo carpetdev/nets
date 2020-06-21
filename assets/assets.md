@@ -1,0 +1,1 @@
+MNIST assests downloaded during runtime
