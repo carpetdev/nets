@@ -42,7 +42,7 @@ def train_MNIST(model):
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         model.to(device)
         transform = T.Compose([T.Resize(32), T.ToTensor(), T.Normalize(0.5, 0.5)])
-        train_data = MNIST('./assets', train=True, download=True, transform=transform)
+        train_data = MNIST("./assets", train=True, download=True, transform=transform)
         train_loader = D.DataLoader(train_data, batch_size=batch_size, shuffle=True)
         criterion = nn.MSELoss()
         optimizer = optim.SGD(model.parameters(), lr=learning_rate)
@@ -62,6 +62,11 @@ def train_MNIST(model):
                     # # print(outputs)
                     # # print(labels)
 
+        model.to("cpu")
 
-lucida = Lucida()
-train_MNIST(lucida)
+
+# # lucy = Lucida()
+# # train_MNIST(lucy)
+# # torch.save(lucy, "./models/lucida_trained.pt") # change to serializing only the parameters
+
+
