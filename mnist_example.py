@@ -58,7 +58,7 @@ def train_MNIST(model):
                 optimizer.step()
 
                 if i % 2000 == 1999:
-                    print(f"[{epoch+1:d}, {i+1:d}] loss = {loss.item()}")
+                    print(f"[{epoch+1}, {i+1}] loss = {loss.item()}")
                     # # print(outputs)
                     # # print(labels)
 

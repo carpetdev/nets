@@ -29,11 +29,18 @@ class Lucida(nn.Module):
 lucy = torch.load("./models/lucida_trained.pt")
 
 transform = T.Compose([T.Resize(32), T.ToTensor(), T.Normalize(0.5, 0.5)])
-test_data = MNIST("./assets", train=True, download=True, transform=transform)
+test_data = MNIST("./assets", train=False, download=True, transform=transform)
 test_loader = D.DataLoader(test_data)
 
-for test_input, label in iter(test_loader):
-    pyplot.imshow(test_input[0,0,:,:], cmap='gray')
-    pyplot.show(block=False)
-    hi = input("Press Enter to test")
-    print(lucy(test_input).argmax().item())
+wrong_tests = 0
+for i, data in enumerate(test_loader):
+    test_input, label = data
+    # # pyplot.imshow(test_input[0,0,:,:], cmap='gray')
+    # # pyplot.show(block=False)
+    # # input("Press Enter to test")
+    # # print(lucy(test_input).argmax().item())
+    if lucy(test_input).argmax().item() != label:
+        wrong_tests += 1
+    if i % 1000 == 999:
+        print(f"There have been {wrong_tests} incorrect tests.")
+print(f"There were {wrong_tests} incorrect tests.")
